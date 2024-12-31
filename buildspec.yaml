@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  pre_build:
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt -t ./package
+  build:
+    commands:
+      - echo "Packaging application..."
+      - chmod +x scripts/*.sh  # Ensure scripts are executable
+      - zip -r app.zip . -x '*.git*'  # Exclude Git files
+artifacts:
+  files:
+    - requirements.txt
+    - appspec.yml
+    - app.zip
+    - scripts/**
